@@ -1,9 +1,13 @@
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,12 +19,18 @@ import javax.swing.JOptionPane;
  * @author Entrar
  */
 public class DIUImageThreshold extends javax.swing.JFrame {
+    private ThresholdDialog th;
 
     /**
      * Creates new form DIUImageThreshold
      */
     public DIUImageThreshold() {
         initComponents();
+        try {
+            setIconImage(ImageIO.read(new File("./src/icons/ulpgc.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(DIUImageThreshold.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -46,6 +56,7 @@ public class DIUImageThreshold extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("DIUshop");
+        setIconImages(null);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -56,7 +67,7 @@ public class DIUImageThreshold extends javax.swing.JFrame {
         imagePanel.setLayout(imagePanelLayout);
         imagePanelLayout.setHorizontalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addGap(0, 463, Short.MAX_VALUE)
         );
         imagePanelLayout.setVerticalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -66,6 +77,8 @@ public class DIUImageThreshold extends javax.swing.JFrame {
         fileMenu.setText("File");
 
         openMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        openMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        openMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/open_2.png"))); // NOI18N
         openMenuItem.setMnemonic('c');
         openMenuItem.setText("Open...");
         openMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +89,7 @@ public class DIUImageThreshold extends javax.swing.JFrame {
         fileMenu.add(openMenuItem);
 
         saveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        saveMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
         saveMenuItem.setText("Save...");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +142,7 @@ public class DIUImageThreshold extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(imagePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,10 +156,14 @@ public class DIUImageThreshold extends javax.swing.JFrame {
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         JFileChooser fc = new JFileChooser(".");
+        fc.setFileFilter(new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif"));
         int open = fc.showOpenDialog(rootPane);
         if (open == JFileChooser.APPROVE_OPTION) {
             imagePanel.setImage(fc.getSelectedFile());
             this.setSize(imagePanel.getWidth(), imagePanel.getHeight());
+        }
+        if (th != null) {
+            th.dispose();
         }
     }//GEN-LAST:event_openMenuItemActionPerformed
 
@@ -189,7 +207,7 @@ public class DIUImageThreshold extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
-        ThresholdDialog th = new ThresholdDialog(this, true);
+        th = new ThresholdDialog(this, false);
         th.setLocation(this.getWidth(), 0);
         th.setVisible(true);
     }//GEN-LAST:event_editMenuItemActionPerformed
