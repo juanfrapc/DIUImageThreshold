@@ -114,6 +114,7 @@ public class DIUImageThreshold extends javax.swing.JFrame {
 
         editMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         editMenuItem.setText("Apply Threshold...");
+        editMenuItem.setEnabled(false);
         editMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editMenuItemActionPerformed(evt);
@@ -165,6 +166,7 @@ public class DIUImageThreshold extends javax.swing.JFrame {
         if (th != null) {
             th.dispose();
         }
+        editMenuItem.setEnabled(true);
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
