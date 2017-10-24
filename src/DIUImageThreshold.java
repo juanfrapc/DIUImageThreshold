@@ -91,6 +91,7 @@ public class DIUImageThreshold extends javax.swing.JFrame {
         saveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         saveMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
         saveMenuItem.setText("Save...");
+        saveMenuItem.setEnabled(false);
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveMenuItemActionPerformed(evt);
@@ -167,6 +168,7 @@ public class DIUImageThreshold extends javax.swing.JFrame {
             th.dispose();
         }
         editMenuItem.setEnabled(true);
+        saveMenuItem.setEnabled(true);
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
